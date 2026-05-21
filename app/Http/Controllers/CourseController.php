@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cour;
 use App\Models\Session;
 use App\Models\Inscription;
+use App\Models\CourHoraire;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -251,5 +252,202 @@ class CourseController extends Controller
             ->delete();
             
         return redirect()->route('courses.index')->with('success', 'Vous avez quitté le cours.');
+    }
+
+    /**
+     * Affiche le calendrier général avec tous les cours de l'utilisateur.
+     */
+    public function generalCalendar(Request $request)
+    {
+        $user = $request->user();
+        
+        // Récupérer tous les cours de l'utilisateur
+        if ($user->isTeacher()) {
+            // Professeur : tous ses cours
+            $courses = $user->coursEnseignes()->with(['sessions', 'horaires'])->get();
+        } else {
+            // Étudiant : cours inscrits
+            $courses = $user->inscriptions()->with(['cour.sessions', 'cour.horaires'])->get()->pluck('cour');
+        }
+        
+        // Algorithme du programme du jour
+        $programmeDuJour = [];
+        $now = Carbon::now('UTC');
+        $currentDayOfWeek = $now->dayOfWeek; // 0 = Dimanche, 1 = Lundi, etc.
+        
+        foreach ($courses as $course) {
+            // Traitement des sessions flexibles
+            foreach ($course->sessions as $session) {
+                $sessionDate = Carbon::parse($session->date_heure);
+                
+                // Vérifier si la session est aujourd'hui
+                if ($sessionDate->isSameDay($now)) {
+                    $startTime = Carbon::parse($session->date_heure);
+                    $endTime = $startTime->copy()->addMinutes($session->duree_minutes);
+                    
+                    // Calcul marge active (±10 min)
+                    $marginStart = $startTime->copy()->subMinutes(10);
+                    $marginEnd = $endTime->copy()->addMinutes(10);
+                    
+                    $isLive = $now->between($marginStart, $marginEnd);
+                    
+                    $programmeDuJour[] = [
+                        'type' => 'session',
+                        'id' => $session->id,
+                        'titre' => $session->titre,
+                        'course_titre' => $course->titre,
+                        'course_id' => $course->id,
+                        'course_color' => '#ffdf9e',
+                        'heure_debut' => $session->date_heure,
+                        'duree_minutes' => $session->duree_minutes,
+                        'is_live' => $isLive,
+                        'type_cours' => $session->type,
+                        'lien' => $session->lien_live ?: $session->lien_video
+                    ];
+                }
+            }
+            
+            // Traitement des horaires réguliers
+            foreach ($course->horaires as $horaire) {
+                // Convertir jour_semaine (0-6) en index compatible
+                // Horaire: 0=Dimanche, 1=Lundi...6=Samedi
+                // Carbon: 0=Dimanche, 1=Lundi...6=Samedi
+                $horaireDay = (int)$horaire->jour_semaine;
+                
+                if ($horaireDay === $currentDayOfWeek) {
+                    // Projeter sur aujourd'hui
+                    $startString = $horaire->heure_debut;
+                    $endString = $horaire->heure_fin;
+                    
+                    $startTime = Carbon::createFromFormat('H:i', $startString, 'UTC')->setDate($now->year, $now->month, $now->day);
+                    $endTime = Carbon::createFromFormat('H:i', $endString, 'UTC')->setDate($now->year, $now->month, $now->day);
+                    
+                    // Calcul marge active
+                    $marginStart = $startTime->copy()->subMinutes(10);
+                    $marginEnd = $endTime->copy()->addMinutes(10);
+                    
+                    $isLive = $now->between($marginStart, $marginEnd);
+                    
+                    $programmeDuJour[] = [
+                        'type' => 'horaire',
+                        'id' => $horaire->id,
+                        'titre' => $course->titre,
+                        'course_titre' => $course->titre,
+                        'course_id' => $course->id,
+                        'course_color' => '#ffdf9e',
+                        'heure_debut' => $startTime->toISOString(),
+                        'duree_minutes' => $startTime->diffInMinutes($endTime),
+                        'is_live' => $isLive,
+                        'type_cours' => 'regulier',
+                        'lien' => null
+                    ];
+                }
+            }
+        }
+        
+        // Trier par heure de début
+        usort($programmeDuJour, function($a, $b) {
+            return strcmp($a['heure_debut'], $b['heure_debut']);
+        });
+        
+        return Inertia::render('Calendar/Index', [
+            'courses' => $courses->toArray(),
+            'programme_du_jour' => $programmeDuJour,
+            'today' => $now->toDateString()
+        ]);
+    }
+
+    /**
+     * Affiche le dashboard avec le programme du jour.
+     */
+    public function dashboard(Request $request)
+    {
+        $user = $request->user();
+        
+        if ($user->isTeacher()) {
+            $courses = $user->coursEnseignes()->with(['sessions', 'horaires'])->get();
+            $recentCourses = $user->coursEnseignes()->latest()->take(3)->get();
+            $totalCoursesCount = $user->coursEnseignes()->count();
+        } else {
+            $courses = $user->inscriptions()->with(['cour.sessions', 'cour.horaires'])->get()->pluck('cour');
+            $coursesQuery = $user->inscriptions()->with('cour')->latest();
+            $recentCourses = $coursesQuery->take(3)->get()->pluck('cour');
+            $totalCoursesCount = $coursesQuery->count();
+        }
+        
+        // Calculer le programme du jour
+        $now = Carbon::now('UTC');
+        $currentDayOfWeek = $now->dayOfWeek;
+        $programmeDuJour = [];
+        
+        foreach ($courses as $course) {
+            foreach ($course->sessions as $session) {
+                $sessionDate = Carbon::parse($session->date_heure);
+                
+                if ($sessionDate->isSameDay($now)) {
+                    $startTime = Carbon::parse($session->date_heure);
+                    $endTime = $startTime->copy()->addMinutes($session->duree_minutes);
+                    
+                    $marginStart = $startTime->copy()->subMinutes(10);
+                    $marginEnd = $endTime->copy()->addMinutes(10);
+                    
+                    $isLive = $now->between($marginStart, $marginEnd);
+                    
+                    $programmeDuJour[] = [
+                        'type' => 'session',
+                        'id' => $session->id,
+                        'titre' => $session->titre,
+                        'course_titre' => $course->titre,
+                        'course_id' => $course->id,
+                        'heure_debut' => $session->date_heure,
+                        'duree_minutes' => $session->duree_minutes,
+                        'is_live' => $isLive,
+                        'type_cours' => $session->type,
+                        'lien' => $session->lien_live ?: $session->lien_video
+                    ];
+                }
+            }
+            
+            foreach ($course->horaires as $horaire) {
+                $horaireDay = (int)$horaire->jour_semaine;
+                
+                if ($horaireDay === $currentDayOfWeek) {
+                    $startString = $horaire->heure_debut;
+                    $endString = $horaire->heure_fin;
+                    
+                    $startTime = Carbon::createFromFormat('H:i', $startString, 'UTC')->setDate($now->year, $now->month, $now->day);
+                    $endTime = Carbon::createFromFormat('H:i', $endString, 'UTC')->setDate($now->year, $now->month, $now->day);
+                    
+                    $marginStart = $startTime->copy()->subMinutes(10);
+                    $marginEnd = $endTime->copy()->addMinutes(10);
+                    
+                    $isLive = $now->between($marginStart, $marginEnd);
+                    
+                    $programmeDuJour[] = [
+                        'type' => 'horaire',
+                        'id' => $horaire->id,
+                        'titre' => $course->titre,
+                        'course_titre' => $course->titre,
+                        'course_id' => $course->id,
+                        'heure_debut' => $startTime->toISOString(),
+                        'duree_minutes' => $startTime->diffInMinutes($endTime),
+                        'is_live' => $isLive,
+                        'type_cours' => 'regulier',
+                        'lien' => null
+                    ];
+                }
+            }
+        }
+        
+        usort($programmeDuJour, function($a, $b) {
+            return strcmp($a['heure_debut'], $b['heure_debut']);
+        });
+        
+        return Inertia::render('Dashboard', [
+            'recentCourses' => $recentCourses,
+            'totalCoursesCount' => $totalCoursesCount,
+            'programme_du_jour' => $programmeDuJour,
+            'today' => $now->toDateString()
+        ]);
     }
 }

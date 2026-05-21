@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CourseController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -14,26 +15,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function (\Illuminate\Http\Request $request) {
-    $user = $request->user();
-    
-    if ($user->isTeacher()) {
-        $courses = $user->coursEnseignes()->take(2)->get();
-        return Inertia::render('Dashboard', [
-            'recentCourses' => $courses
-        ]);
-    }
-    
-    // Étudiant : recentCourses (3 + totalCoursesCount)
-    $coursesQuery = $user->inscriptions()->with('cour')->latest();
-    $recentCourses = $coursesQuery->take(3)->get()->pluck('cour');
-    $totalCoursesCount = $coursesQuery->count();
-    
-    return Inertia::render('Dashboard', [
-        'recentCourses' => $recentCourses,
-        'totalCoursesCount' => $totalCoursesCount
-    ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [CourseController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -71,6 +53,9 @@ Route::middleware('auth')->group(function () {
 
     // Route d'obtention de token pour LiveKit
     Route::get('/live-token', [\App\Http\Controllers\LiveKitController::class, 'getToken'])->name('livekit.token');
+
+    // Calendrier général
+    Route::get('/calendar', [\App\Http\Controllers\CourseController::class, 'generalCalendar'])->name('calendar');
 });
 
 require __DIR__.'/auth.php';

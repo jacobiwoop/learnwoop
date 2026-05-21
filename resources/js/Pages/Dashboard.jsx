@@ -1,9 +1,40 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link, usePage, router } from '@inertiajs/react';
 
-export default function Dashboard({ recentCourses = [], totalCoursesCount = 0 }) {
+export default function Dashboard({ recentCourses = [], totalCoursesCount = 0, programme_du_jour = [], today }) {
     const user = usePage().props.auth.user;
     const isTeacher = user.role === 'prof';
+    
+    const formatStartTime = (isoString) => {
+        if (!isoString) return '';
+        const date = new Date(isoString);
+        return date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+    };
+    
+    const getEventColor = (type, statut) => {
+        if (type === 'live') {
+            return { border: 'border-secondary', badgeBg: 'bg-secondary', badgeText: 'text-white' };
+        }
+        return { border: 'border-tertiary-fixed-dim', badgeBg: 'bg-surface-variant/50', badgeText: 'text-on-surface-variant' };
+    };
+    
+    const handleJoinClass = (event) => {
+        if (event.lien) {
+            window.open(event.lien, '_blank');
+        } else {
+            router.visit(route('diffusion'));
+        }
+    };
+    
+    const getBadgeText = (event) => {
+        if (event.is_live && event.type_cours === 'live') {
+            return `En Direct à ${formatStartTime(event.heure_debut)}`;
+        }
+        if (event.heure_debut) {
+            return formatStartTime(event.heure_debut);
+        }
+        return '';
+    };
 
     return (
         <AuthenticatedLayout>
@@ -15,7 +46,7 @@ export default function Dashboard({ recentCourses = [], totalCoursesCount = 0 })
                     {isTeacher ? `Content de vous revoir, ${user.prenom} !` : `Bonjour, ${user.prenom} !`}
                 </h2>
                 <p className="text-lg text-on-surface-variant font-medium">
-                    {isTeacher ? "Gérez vos cours et interagissez avec vos étudiants." : "Prêt à poursuivre votre apprentissage aujourd'hui ?"}
+                    {isTeacher ? "Gérez vos cours et interagissez avec vos étudiants." : `Prêt à poursuivre votre apprentissage aujourd'hui ?`}
                 </p>
             </section>
 
@@ -29,51 +60,57 @@ export default function Dashboard({ recentCourses = [], totalCoursesCount = 0 })
                                 <span className="material-symbols-outlined text-secondary">event_note</span>
                                 Programme du jour
                             </h3>
-                            <Link href="#" className="text-secondary text-sm font-bold hover:underline">Voir tout le calendrier</Link>
+                            <Link href={route('calendar')} className="text-secondary text-sm font-bold hover:underline">Voir tout le calendrier</Link>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {/* Live Class Card 1 */}
-                            <div className="bg-surface-container-lowest p-5 rounded-2xl shadow-sm border border-outline-variant/30 border-l-4 border-l-secondary flex flex-col gap-3 group hover:shadow-md transition-all">
-                                <div className="flex justify-between items-start">
-                                    <span className="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-xs font-bold">En Direct à 14:00</span>
-                                    <button className="material-symbols-outlined text-on-surface-variant">more_vert</button>
-                                </div>
-                                <div>
-                                    <h4 className="font-manrope text-lg font-bold text-primary mb-1">Algorithmique Avancée</h4>
-                                    <p className="text-sm text-on-surface-variant font-medium">M. Amadou Sow</p>
-                                </div>
-                                <div className="flex items-center gap-2 mt-2">
-                                    <Link 
-                                        href={route('courses.show', 1)} 
-                                        className="flex-1 bg-secondary text-white text-sm font-bold py-2.5 rounded-xl hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
-                                    >
-                                        <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>
-                                        Rejoindre la classe
-                                    </Link>
-                                </div>
+                        {programme_du_jour.length > 0 ? (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {programme_du_jour.map((event, index) => {
+                                    const colors = getEventColor(event.type_cours, event.statut);
+                                    const badgeText = getBadgeText(event);
+                                    
+                                    return (
+                                        <div key={index} className={`bg-surface-container-lowest p-5 rounded-2xl shadow-sm border border-outline-variant/30 border-l-4 ${colors.border} flex flex-col gap-3 group hover:shadow-md transition-all`}>
+                                            <div className="flex justify-between items-start">
+                                                <span className={`${colors.badgeBg} ${colors.badgeText} px-3 py-1 rounded-full text-xs font-bold`}>
+                                                    {badgeText}
+                                                </span>
+                                                <button className="material-symbols-outlined text-on-surface-variant">more_vert</button>
+                                            </div>
+                                            <div>
+                                                <h4 className="font-manrope text-lg font-bold text-primary mb-1">{event.titre}</h4>
+                                                <p className="text-sm text-on-surface-variant font-medium">{event.course_titre}</p>
+                                            </div>
+                                            <div className="flex items-center gap-2 mt-2">
+                                                {event.is_live ? (
+                                                    <button 
+                                                        onClick={() => handleJoinClass(event)}
+                                                        className="flex-1 bg-secondary text-white text-sm font-bold py-2.5 rounded-xl hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+                                                    >
+                                                        <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>
+                                                        Rejoindre la classe
+                                                    </button>
+                                                ) : (
+                                                    <Link 
+                                                        href={route('courses.show', event.course_id || 1)} 
+                                                        className="flex-1 border-2 border-secondary text-secondary text-sm font-bold py-2 rounded-xl hover:bg-secondary/5 transition-colors text-center"
+                                                    >
+                                                        Détails du cours
+                                                    </Link>
+                                                )}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
                             </div>
-
-                            {/* Class Card 2 */}
-                            <div className="bg-surface-container-lowest p-5 rounded-2xl shadow-sm border border-outline-variant/30 border-l-4 border-l-tertiary-fixed-dim flex flex-col gap-3 group hover:shadow-md transition-all">
-                                <div className="flex justify-between items-start">
-                                    <span className="bg-surface-variant/50 text-on-surface-variant px-3 py-1 rounded-full text-xs font-bold">16:30 - 18:00</span>
-                                    <button className="material-symbols-outlined text-on-surface-variant">more_vert</button>
-                                </div>
-                                <div>
-                                    <h4 className="font-manrope text-lg font-bold text-primary mb-1">Économie Numérique au Bénin</h4>
-                                    <p className="text-sm text-on-surface-variant font-medium">Mme. Chantal Agueh</p>
-                                </div>
-                                <div className="flex items-center gap-2 mt-2">
-                                    <Link 
-                                        href={route('courses.show', 2)} 
-                                        className="flex-1 border-2 border-secondary text-secondary text-sm font-bold py-2 rounded-xl hover:bg-secondary/5 transition-colors text-center"
-                                    >
-                                        Détails du cours
-                                    </Link>
-                                </div>
+                        ) : (
+                            <div className="border-2 border-dashed border-outline-variant/30 rounded-2xl p-8 text-center">
+                                <span className="material-symbols-outlined text-4xl text-on-surface-variant mb-3">event_busy</span>
+                                <p className="text-sm font-medium text-on-surface-variant">
+                                    Aucun cours prévu aujourd'hui ({new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })})
+                                </p>
                             </div>
-                        </div>
+                        )}
                     </section>
 
                     {/* Mes Cours (Grid) */}
