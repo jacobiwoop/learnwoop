@@ -1,0 +1,107 @@
+// ============================================
+// Plateforme E-Learning — Schéma de la base de données
+// Version : POC évolutif vers Multi-SaaS
+// ============================================
+
+// ---- ORGANISATIONS (Multi-tenant) ----
+Table organisations {
+  id integer [pk, increment]
+  nom varchar(255) [not null]
+  slug varchar(255) [unique, not null]
+  email varchar(255) [unique, not null]
+  statut enum('actif', 'suspendu') [not null, default: 'actif']
+  created_at datetime [default: `now()`]
+  updated_at datetime [default: `now()`]
+}
+
+// ---- USERS ----
+Table users {
+  id integer [pk, increment]
+  nom varchar(100) [not null]
+  prenom varchar(100) [not null]
+  email varchar(255) [unique, not null]
+  mot_de_passe varchar(255) [not null]
+  role enum('etudiant', 'professeur', 'admin_orga', 'super_admin') [not null, default: 'etudiant']
+  organisation_id integer [ref: > organisations.id, default: null]
+  statut enum('actif', 'suspendu') [not null, default: 'actif']
+  created_at datetime [default: `now()`]
+  updated_at datetime [default: `now()`]
+}
+
+// ---- COURS ----
+Table cours {
+  id integer [pk, increment]
+  titre varchar(255) [not null]
+  slug varchar(255) [unique, not null]
+  description text
+  prof_id integer [not null, ref: > users.id]
+  organisation_id integer [ref: > organisations.id]
+  statut enum('brouillon', 'publié', 'archivé') [not null, default: 'brouillon']
+  created_at datetime [default: `now()`]
+  updated_at datetime [default: `now()`]
+}
+
+// ---- INSCRIPTIONS ----
+Table inscriptions {
+  id integer [pk, increment]
+  etudiant_id integer [not null, ref: > users.id]
+  cours_id integer [not null, ref: > cours.id]
+  created_at datetime [default: `now()`]
+
+  indexes {
+    (etudiant_id, cours_id) [unique]
+  }
+}
+
+// ---- SESSIONS (Lives et Rediffusions) ----
+Table sessions {
+  id integer [pk, increment]
+  cours_id integer [not null, ref: > cours.id]
+  titre varchar(255) [not null]
+  type enum('live', 'rediffusion') [not null]
+  date_heure datetime [not null]
+  
+  // Champs spécifiques LiveKit
+  livekit_room_name varchar(255)
+  lien_live varchar(500)
+  
+  // Champ pour la rediffusion
+  lien_video varchar(500)
+  
+  statut enum('programmé', 'en_cours', 'terminé') [not null, default: 'programmé']
+  created_at datetime [default: `now()`]
+  updated_at datetime [default: `now()`]
+}
+
+// ---- RESSOURCES ----
+Table ressources {
+  id integer [pk, increment]
+  cours_id integer [not null, ref: > cours.id]
+  session_id integer [ref: > sessions.id] // Optionnel : lier à une session précise
+  titre varchar(255) [not null]
+  type enum('pdf', 'video', 'slide', 'autre') [not null]
+  url varchar(500) [not null]
+  created_at datetime [default: `now()`]
+}
+
+// ---- NOTES ----
+Table notes {
+  id integer [pk, increment]
+  etudiant_id integer [not null, ref: > users.id]
+  session_id integer [not null, ref: > sessions.id]
+  contenu text [not null]
+  updated_at datetime [default: `now()`]
+
+  indexes {
+    (etudiant_id, session_id) [unique]
+  }
+}
+
+// ---- EMPLOI DU TEMPS ----
+Table emploi_du_temps {
+  id integer [pk, increment]
+  cours_id integer [not null, ref: > cours.id]
+  jour_semaine enum('lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche') [not null]
+  heure_debut time [not null]
+  heure_fin time [not null]
+}

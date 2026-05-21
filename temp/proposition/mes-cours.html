@@ -1,0 +1,713 @@
+<!doctype html>
+
+<html class="light" lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>Mes Cours - EduBenin</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+            rel="stylesheet"
+        />
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            primary: "#000666",
+                            surface: "#f7f9fc",
+                            "on-primary-fixed": "#000767",
+                            "inverse-on-surface": "#eff1f4",
+                            "surface-tint": "#4c56af",
+                            "on-tertiary": "#ffffff",
+                            "surface-dim": "#d8dadd",
+                            "inverse-surface": "#2d3133",
+                            "tertiary-fixed": "#ffdf9e",
+                            "surface-container-highest": "#e0e3e6",
+                            "on-error-container": "#93000a",
+                            "secondary-fixed": "#9cf0ff",
+                            "error-container": "#ffdad6",
+                            "on-tertiary-fixed": "#261a00",
+                            "on-primary-fixed-variant": "#343d96",
+                            "on-background": "#191c1e",
+                            "surface-container": "#eceef1",
+                            "on-secondary-fixed": "#001f24",
+                            "on-tertiary-fixed-variant": "#5b4300",
+                            outline: "#767683",
+                            "tertiary-container": "#3f2d00",
+                            "surface-container-high": "#e6e8eb",
+                            "on-tertiary-container": "#c09000",
+                            "secondary-container": "#00e3fd",
+                            "surface-bright": "#f7f9fc",
+                            "on-surface-variant": "#454652",
+                            "on-primary-container": "#8690ee",
+                            secondary: "#006875",
+                            "surface-container-low": "#f2f4f7",
+                            "surface-container-lowest": "#ffffff",
+                            "on-secondary": "#ffffff",
+                            "outline-variant": "#c6c5d4",
+                            "on-secondary-fixed-variant": "#004f58",
+                            "on-surface": "#191c1e",
+                            "surface-variant": "#e0e3e6",
+                            "tertiary-fixed-dim": "#fabd00",
+                            "on-error": "#ffffff",
+                            "secondary-fixed-dim": "#00daf3",
+                            "primary-fixed": "#e0e0ff",
+                            "on-secondary-container": "#00616d",
+                            "primary-container": "#1a237e",
+                            tertiary: "#251900",
+                            "on-primary": "#ffffff",
+                            "primary-fixed-dim": "#bdc2ff",
+                            "inverse-primary": "#bdc2ff",
+                            background: "#f7f9fc",
+                            error: "#ba1a1a",
+                        },
+                        borderRadius: {
+                            DEFAULT: "0.25rem",
+                            lg: "0.5rem",
+                            xl: "0.75rem",
+                            full: "9999px",
+                        },
+                        spacing: {
+                            "stack-sm": "0.5rem",
+                            "container-max": "1280px",
+                            "margin-mobile": "1rem",
+                            "stack-lg": "2rem",
+                            gutter: "1.5rem",
+                            "margin-desktop": "2rem",
+                            "stack-md": "1rem",
+                        },
+                        fontFamily: {
+                            "label-sm": ["Inter"],
+                            "headline-lg-mobile": ["Manrope"],
+                            "headline-md": ["Manrope"],
+                            "body-lg": ["Inter"],
+                            "label-md": ["Inter"],
+                            "headline-lg": ["Manrope"],
+                            "display-lg": ["Manrope"],
+                            "body-md": ["Inter"],
+                        },
+                        fontSize: {
+                            "label-sm": [
+                                "12px",
+                                { lineHeight: "16px", fontWeight: "600" },
+                            ],
+                            "headline-lg-mobile": [
+                                "28px",
+                                { lineHeight: "36px", fontWeight: "600" },
+                            ],
+                            "headline-md": [
+                                "24px",
+                                { lineHeight: "32px", fontWeight: "600" },
+                            ],
+                            "body-lg": [
+                                "18px",
+                                { lineHeight: "28px", fontWeight: "400" },
+                            ],
+                            "label-md": [
+                                "14px",
+                                {
+                                    lineHeight: "20px",
+                                    letterSpacing: "0.01em",
+                                    fontWeight: "500",
+                                },
+                            ],
+                            "headline-lg": [
+                                "32px",
+                                { lineHeight: "40px", fontWeight: "600" },
+                            ],
+                            "display-lg": [
+                                "48px",
+                                {
+                                    lineHeight: "56px",
+                                    letterSpacing: "-0.02em",
+                                    fontWeight: "700",
+                                },
+                            ],
+                            "body-md": [
+                                "16px",
+                                { lineHeight: "24px", fontWeight: "400" },
+                            ],
+                        },
+                    },
+                },
+            };
+        </script>
+        <style>
+            .material-symbols-outlined {
+                font-variation-settings:
+                    "FILL" 0,
+                    "wght" 400,
+                    "GRAD" 0,
+                    "opsz" 24;
+            }
+            .card-shadow {
+                box-shadow: 0px 4px 12px rgba(26, 35, 126, 0.05);
+            }
+            .card-shadow-hover:hover {
+                box-shadow: 0px 8px 24px rgba(26, 35, 126, 0.1);
+            }
+        </style>
+    </head>
+    <body class="bg-background text-on-background min-h-screen">
+        <!-- TopNavBar -->
+        <header
+            class="bg-surface-container-lowest dark:bg-inverse-surface shadow-sm docked full-width top-0 sticky z-50 flex justify-between items-center px-margin-desktop w-full h-16"
+        >
+            <div class="flex items-center gap-stack-md">
+                <span
+                    class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim"
+                    >EduBenin</span
+                >
+                <nav class="hidden md:flex gap-gutter ml-8">
+                    <a
+                        class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors cursor-pointer active:scale-95 duration-200"
+                        href="#"
+                        >Dashboard</a
+                    >
+                    <a
+                        class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors cursor-pointer active:scale-95 duration-200"
+                        href="#"
+                        >Catalog</a
+                    >
+                    <a
+                        class="font-label-md text-label-md text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors cursor-pointer active:scale-95 duration-200"
+                        href="#"
+                        >Resources</a
+                    >
+                </nav>
+            </div>
+            <div class="flex items-center gap-stack-md">
+                <div
+                    class="hidden md:flex items-center bg-surface-container rounded-full px-4 py-1 gap-2"
+                >
+                    <span
+                        class="material-symbols-outlined text-outline text-[20px]"
+                        >search</span
+                    >
+                    <input
+                        class="bg-transparent border-none focus:ring-0 text-label-md font-label-md w-48"
+                        placeholder="Rechercher..."
+                        type="text"
+                    />
+                </div>
+                <button
+                    class="material-symbols-outlined text-on-surface-variant cursor-pointer"
+                >
+                    notifications
+                </button>
+                <button
+                    class="material-symbols-outlined text-on-surface-variant cursor-pointer"
+                >
+                    help_outline
+                </button>
+                <div
+                    class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant"
+                >
+                    <img
+                        alt="Student Profile Picture"
+                        class="h-full w-full object-cover"
+                        data-alt="A professional close-up portrait of a West African female student with a warm, confident expression. She is in a brightly lit, modern academic environment with soft-focus books in the background. The lighting is natural and high-key, aligning with a professional corporate SaaS aesthetic. The color palette features clean whites and soft indigo tones."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxGn75PIFP-CRgS-tPrnKMEwprfMrIqcWew9UajLGqUGtSjRcB7FYlBnpIPLiGp36OZIIZ3IxxZQPIiHnDZsx_6EZaEUiH55iQkUrToYIMnSk2PXdJaxHp9pzaIkDzYUBo3CrPQSwd-u_VgX5ARUss2kg4Ca5SCqGzZWMWIRy6nZSxBgJsWIeznd0nLiIC0Hw6ZeHeSNT7nxj6RU6hP8YpYmLFhRJCSgxRpACRJTjZLLU_V0dJ4v55QFuvgif4D25vqmncosr8bOY"
+                    />
+                </div>
+            </div>
+        </header>
+        <!-- SideNavBar -->
+        <aside
+            class="flex flex-col p-gutter gap-stack-md w-64 border-r border-outline-variant dark:border-outline h-screen fixed left-0 top-0 pt-20 bg-surface-container-low dark:bg-on-background hidden lg:flex"
+        >
+            <div class="flex items-center gap-3 mb-stack-lg px-2">
+                <div
+                    class="h-10 w-10 rounded-full overflow-hidden bg-primary-container flex items-center justify-center"
+                >
+                    <img
+                        alt="Student Avatar"
+                        class="h-full w-full object-cover"
+                        data-alt="A detailed headshot of a professional young man in his late 20s, representing a West African professional track student. He is wearing a crisp white shirt against a neutral, softly lit office background. The overall style is clean, modern, and high-quality, mirroring a high-end educational platform's user interface."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1oSamY86bywXvdrqg1Xt-Dc_56p-2ylYN8VR11wJKkXsqWiwPHcV9yqqZF7fkaf9XKZc4aX6tePeZdOQRikfcWAtZWulOLuxTqADdNVKbuyqiz5vNdbZV4WHa7bcFRpfZOG1hpKB7uZ0dDkaAGxP5ECnjP3S12P6mNdM4Y5psnKVh84u397xVwrdL2pY5tqum8E_e5LcpVdeAa6aunMikp9jNCYfQdSwf_TD4Dla1WsKK_hzO4b3ZqCNOVAHJLWlozNgIjbAuTMk"
+                    />
+                </div>
+                <div class="flex flex-col">
+                    <span
+                        class="font-label-md text-label-md text-primary font-bold"
+                        >Jean Dupont</span
+                    >
+                    <span class="text-[12px] text-on-surface-variant"
+                        >Professional Track</span
+                    >
+                </div>
+            </div>
+            <nav class="flex flex-col gap-1">
+                <a
+                    class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-highest dark:hover:bg-inverse-surface rounded-lg cursor-pointer active:translate-x-1 duration-200 font-label-md text-label-md"
+                    href="#"
+                >
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span>Overview</span>
+                </a>
+                <a
+                    class="flex items-center gap-3 px-3 py-2 bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-lg font-bold cursor-pointer active:translate-x-1 duration-200 font-label-md text-label-md"
+                    href="#"
+                >
+                    <span class="material-symbols-outlined">school</span>
+                    <span>My Courses</span>
+                </a>
+                <a
+                    class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-highest dark:hover:bg-inverse-surface rounded-lg cursor-pointer active:translate-x-1 duration-200 font-label-md text-label-md"
+                    href="#"
+                >
+                    <span class="material-symbols-outlined">assignment</span>
+                    <span>Assignments</span>
+                </a>
+                <a
+                    class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-highest dark:hover:bg-inverse-surface rounded-lg cursor-pointer active:translate-x-1 duration-200 font-label-md text-label-md"
+                    href="#"
+                >
+                    <span class="material-symbols-outlined"
+                        >workspace_premium</span
+                    >
+                    <span>Certificates</span>
+                </a>
+                <a
+                    class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-highest dark:hover:bg-inverse-surface rounded-lg cursor-pointer active:translate-x-1 duration-200 font-label-md text-label-md"
+                    href="#"
+                >
+                    <span class="material-symbols-outlined">settings</span>
+                    <span>Settings</span>
+                </a>
+            </nav>
+            <div class="mt-auto pt-stack-lg border-t border-outline-variant">
+                <div class="bg-primary-container p-4 rounded-xl mb-4">
+                    <p
+                        class="text-on-primary-container font-label-sm text-label-sm mb-2"
+                    >
+                        Passez au niveau supérieur
+                    </p>
+                    <button
+                        class="w-full py-2 bg-tertiary-fixed-dim text-tertiary font-bold rounded-lg text-label-md hover:opacity-90 transition-opacity"
+                    >
+                        Upgrade to Pro
+                    </button>
+                </div>
+                <a
+                    class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-highest rounded-lg cursor-pointer transition-all font-label-md text-label-md"
+                    href="#"
+                >
+                    <span class="material-symbols-outlined">logout</span>
+                    <span>Log Out</span>
+                </a>
+            </div>
+        </aside>
+        <!-- Main Content -->
+        <main class="lg:ml-64 pt-8 pb-16 px-margin-mobile md:px-margin-desktop">
+            <div class="max-w-container-max mx-auto">
+                <!-- Header Section -->
+                <div
+                    class="flex flex-col md:flex-row md:items-end justify-between gap-stack-md mb-stack-lg"
+                >
+                    <div>
+                        <h1
+                            class="font-headline-lg text-headline-lg text-primary mb-2"
+                        >
+                            Mes Cours
+                        </h1>
+                        <p
+                            class="font-body-md text-body-md text-on-surface-variant"
+                        >
+                            Continuez votre apprentissage là où vous vous êtes
+                            arrêté.
+                        </p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <!-- Search Bar Mobile/Tablet -->
+                        <div
+                            class="flex items-center bg-surface-container-lowest border border-outline-variant rounded-lg px-4 h-11 flex-1 md:w-64"
+                        >
+                            <span
+                                class="material-symbols-outlined text-outline text-[20px] mr-2"
+                                >search</span
+                            >
+                            <input
+                                class="bg-transparent border-none focus:ring-0 text-label-md font-label-md w-full"
+                                placeholder="Filtrer mes cours..."
+                                type="text"
+                            />
+                        </div>
+                        <!-- Filters -->
+                        <button
+                            class="flex items-center justify-center gap-2 px-4 h-11 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors"
+                        >
+                            <span class="material-symbols-outlined text-[20px]"
+                                >filter_list</span
+                            >
+                            <span>Catégorie</span>
+                        </button>
+                        <button
+                            class="flex items-center justify-center gap-2 px-4 h-11 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors"
+                        >
+                            <span class="material-symbols-outlined text-[20px]"
+                                >sort</span
+                            >
+                            <span>Progression</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Bento-style Course Grid -->
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter"
+                >
+                    <!-- Course Card 1 -->
+                    <div
+                        class="bg-surface-container-lowest rounded-xl overflow-hidden card-shadow card-shadow-hover transition-all flex flex-col border border-outline-variant/30"
+                    >
+                        <div class="aspect-video w-full relative">
+                            <img
+                                alt="UI/UX Design Thumbnail"
+                                class="w-full h-full object-cover"
+                                data-alt="A high-quality, professional photograph of a modern UI/UX design workspace. A sleek laptop displays a vibrant design prototype with mobile interface elements in cyan and deep indigo. Beside the laptop are a design sketchbook and a stylus pen on a clean white desk. The lighting is soft and focused, creating an inspiring, corporate academic atmosphere."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-htIaCtdK_9uqURXAvLwnPoxGa3TpZaq8fR11yA2e1Stpi-mxkygWi3gxmZplK2rhxJJkkeJVNANyIfJgl65W6d1UAuP_xpkV7vuwjUADBS_aeDbWl0rF2AkEc4K3j8EDCBgZe-XvSzJO_CxhFDakBBFpv1ZzXAx4CW5TnXik5p3tGD60uSIjOWIJ34e2k_-NGoweHyVocxkv_iIT_A-T6Qt8jS4lEhYX7b6EvsHTISkXc7NTx90OHwYaKmzzOOIeBNF_xiXhgyU"
+                            />
+                            <div class="absolute top-3 left-3">
+                                <span
+                                    class="bg-primary-container/90 backdrop-blur-md text-on-primary-fixed-variant px-3 py-1 rounded-full text-label-sm font-label-sm"
+                                    >Design</span
+                                >
+                            </div>
+                        </div>
+                        <div class="p-5 flex flex-col flex-1">
+                            <h3
+                                class="font-headline-md text-[18px] text-primary mb-4 leading-tight"
+                            >
+                                UI/UX Design Fondamentaux : Créer des
+                                Expériences
+                            </h3>
+                            <div class="mt-auto">
+                                <div
+                                    class="flex justify-between items-center mb-2"
+                                >
+                                    <span
+                                        class="font-label-sm text-label-sm text-on-surface-variant"
+                                        >Progression</span
+                                    >
+                                    <span
+                                        class="font-label-sm text-label-sm text-primary font-bold"
+                                        >65%</span
+                                    >
+                                </div>
+                                <div
+                                    class="w-full bg-surface-container h-2 rounded-full mb-6"
+                                >
+                                    <div
+                                        class="bg-secondary h-full rounded-full w-[65%]"
+                                    ></div>
+                                </div>
+                                <button
+                                    class="w-full py-3 bg-primary text-on-primary rounded-lg font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary/90 active:scale-[0.98] transition-all"
+                                >
+                                    <span>Continuer le cours</span>
+                                    <span
+                                        class="material-symbols-outlined text-[18px]"
+                                        >play_arrow</span
+                                    >
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Course Card 2 -->
+                    <div
+                        class="bg-surface-container-lowest rounded-xl overflow-hidden card-shadow card-shadow-hover transition-all flex flex-col border border-outline-variant/30"
+                    >
+                        <div class="aspect-video w-full relative">
+                            <img
+                                alt="JavaScript Thumbnail"
+                                class="w-full h-full object-cover"
+                                data-alt="A cinematic close-up of a computer screen showing clean, multi-colored lines of JavaScript code. The background is dark but illuminated by the soft glow of the code highlighting in cyan and amber. The focus is sharp on a specific block of logic, conveying a sense of advanced technical learning. The aesthetic is clean, professional, and tech-forward."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5_4E5j6It909KaVOOVUItP7Ty6Kg7RDKZhulL_3RRJ7jAyJVjivLqRcrIqJ5RJ5arapzl9xUjPYW1oaEVjdN5ZGFmkn-5xXgT_qKQIgsoA9g4IU5mDry1vGyk6MwDZ8BhVKP2zdB1UnYQ4wVxpJI9sPEWraD_DYTQIdJ_4K8BVraXI-hpZplpWGV1uzTnzjOKOycz9tSWm-ZlqMv2QoGl_dHRdvTC0rJA4s9_f0DcU6SRNp-jepGwHFYn6PqC9cepsGHXxLLdlP0"
+                            />
+                            <div class="absolute top-3 left-3">
+                                <span
+                                    class="bg-secondary-container/90 backdrop-blur-md text-on-secondary-fixed-variant px-3 py-1 rounded-full text-label-sm font-label-sm"
+                                    >Développement</span
+                                >
+                            </div>
+                        </div>
+                        <div class="p-5 flex flex-col flex-1">
+                            <h3
+                                class="font-headline-md text-[18px] text-primary mb-4 leading-tight"
+                            >
+                                JavaScript Avancé : Maîtrisez les Frameworks
+                                Modernes
+                            </h3>
+                            <div class="mt-auto">
+                                <div
+                                    class="flex justify-between items-center mb-2"
+                                >
+                                    <span
+                                        class="font-label-sm text-label-sm text-on-surface-variant"
+                                        >Progression</span
+                                    >
+                                    <span
+                                        class="font-label-sm text-label-sm text-primary font-bold"
+                                        >12%</span
+                                    >
+                                </div>
+                                <div
+                                    class="w-full bg-surface-container h-2 rounded-full mb-6"
+                                >
+                                    <div
+                                        class="bg-secondary h-full rounded-full w-[12%]"
+                                    ></div>
+                                </div>
+                                <button
+                                    class="w-full py-3 bg-primary text-on-primary rounded-lg font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary/90 active:scale-[0.98] transition-all"
+                                >
+                                    <span>Ouvrir le module</span>
+                                    <span
+                                        class="material-symbols-outlined text-[18px]"
+                                        >play_arrow</span
+                                    >
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Course Card 3 -->
+                    <div
+                        class="bg-surface-container-lowest rounded-xl overflow-hidden card-shadow card-shadow-hover transition-all flex flex-col border border-outline-variant/30"
+                    >
+                        <div class="aspect-video w-full relative">
+                            <img
+                                alt="Digital Marketing Thumbnail"
+                                class="w-full h-full object-cover"
+                                data-alt="A high-angle view of a professional marketing professional's workspace. Two monitors display colorful data analytics charts and social media campaign dashboards. A coffee cup and a smartphone sit on the desk. The scene is bright and airy with a modern corporate feel, using a palette of white, light grey, and vibrant cyan accents."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvWZII-S1bI3_Kr_GSyOT0LdJG3ZnZTkEQs-yslMjCl73WKtuMJyTRFhaQW0D2xCMj0VYkqJ385cp5vxX93QUJaWD8nmuK5qxS1HaqgPadx5WSnOU3GWx7v0RPpxah8QdlNyI49LKhnQD3MWQgc_By3CEqjTsFuIPzCLOVBz7_UqE5TMmmqywzcp2Tl5yES98MVqWoV99EQ0kwPMvZXmpNVBXoSgghPFvZEEc9YvguWZnMPxsj9Yqi7vIv6p_AGeQ3gJrNB5HPcSQ"
+                            />
+                            <div class="absolute top-3 left-3">
+                                <span
+                                    class="bg-tertiary-fixed/90 backdrop-blur-md text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-label-sm font-label-sm"
+                                    >Marketing</span
+                                >
+                            </div>
+                        </div>
+                        <div class="p-5 flex flex-col flex-1">
+                            <h3
+                                class="font-headline-md text-[18px] text-primary mb-4 leading-tight"
+                            >
+                                Stratégie Marketing Digital 2024 : Growth
+                                Hacking
+                            </h3>
+                            <div class="mt-auto">
+                                <div
+                                    class="flex justify-between items-center mb-2"
+                                >
+                                    <span
+                                        class="font-label-sm text-label-sm text-on-surface-variant"
+                                        >Progression</span
+                                    >
+                                    <span
+                                        class="font-label-sm text-label-sm text-primary font-bold"
+                                        >92%</span
+                                    >
+                                </div>
+                                <div
+                                    class="w-full bg-surface-container h-2 rounded-full mb-6"
+                                >
+                                    <div
+                                        class="bg-secondary h-full rounded-full w-[92%]"
+                                    ></div>
+                                </div>
+                                <button
+                                    class="w-full py-3 bg-primary text-on-primary rounded-lg font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary/90 active:scale-[0.98] transition-all"
+                                >
+                                    <span>Terminer le cours</span>
+                                    <span
+                                        class="material-symbols-outlined text-[18px]"
+                                        >play_arrow</span
+                                    >
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Course Card 4 -->
+                    <div
+                        class="bg-surface-container-lowest rounded-xl overflow-hidden card-shadow card-shadow-hover transition-all flex flex-col border border-outline-variant/30"
+                    >
+                        <div class="aspect-video w-full relative">
+                            <img
+                                alt="Data Science Thumbnail"
+                                class="w-full h-full object-cover"
+                                data-alt="A conceptual digital illustration of data visualization. Glowing neural network nodes are connected by thin, vibrant cyan lines on a deep indigo background. Geometric data bars rise in the foreground. The lighting is futuristic and clean, embodying a professional data science course atmosphere for a high-end educational platform."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWr9RP1gCcIfztz43n-j6XIY4MSARpOU8bzrop4D1Z50sXUIT5VT3c57Zs7qaVcmZfRJuNRyJ0QEVfn45aD2iExhkqJoVubCfXgZCzEEShlLk9j3g5EKMmhf4ZpfNeFLbRoPRN495kNaxNSPj7Led0H7OPNJ8i7yaPQyVTq_0D05SFniJmemKcAyK2bJULqU0MZNZ_-CruOgKYNmtNnt1KZ4eVeJ_c_CvBsh2lFNbH_Z5iDKeTDTuYJRHjz_0qTtkTFUm87Dfju-Q"
+                            />
+                            <div class="absolute top-3 left-3">
+                                <span
+                                    class="bg-secondary-container/90 backdrop-blur-md text-on-secondary-fixed-variant px-3 py-1 rounded-full text-label-sm font-label-sm"
+                                    >Data Science</span
+                                >
+                            </div>
+                        </div>
+                        <div class="p-5 flex flex-col flex-1">
+                            <h3
+                                class="font-headline-md text-[18px] text-primary mb-4 leading-tight"
+                            >
+                                Analyse de Données avec Python &amp; Pandas
+                            </h3>
+                            <div class="mt-auto">
+                                <div
+                                    class="flex justify-between items-center mb-2"
+                                >
+                                    <span
+                                        class="font-label-sm text-label-sm text-on-surface-variant"
+                                        >Progression</span
+                                    >
+                                    <span
+                                        class="font-label-sm text-label-sm text-primary font-bold"
+                                        >45%</span
+                                    >
+                                </div>
+                                <div
+                                    class="w-full bg-surface-container h-2 rounded-full mb-6"
+                                >
+                                    <div
+                                        class="bg-secondary h-full rounded-full w-[45%]"
+                                    ></div>
+                                </div>
+                                <button
+                                    class="w-full py-3 bg-primary text-on-primary rounded-lg font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary/90 active:scale-[0.98] transition-all"
+                                >
+                                    <span>Continuer le cours</span>
+                                    <span
+                                        class="material-symbols-outlined text-[18px]"
+                                        >play_arrow</span
+                                    >
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Course Card 5 -->
+                    <div
+                        class="bg-surface-container-lowest rounded-xl overflow-hidden card-shadow card-shadow-hover transition-all flex flex-col border border-outline-variant/30 opacity-60"
+                    >
+                        <div class="aspect-video w-full relative">
+                            <img
+                                alt="Project Management Thumbnail"
+                                class="w-full h-full object-cover grayscale"
+                                data-alt="A top-down view of a project management planning board with colorful sticky notes arranged in columns. A pair of hands is placing a final note. The lighting is bright and overhead, creating a clear and organized visual. The color scheme is predominantly white and light blue with pops of yellow and cyan, evoking a sense of structured productivity."
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_mKowAV2FwhpFP_slptdBbsXIDjtfwLIkweMdS43BukHtnL98EMIHJUytV9L_dvanNFT_ScwVy939HRIWAtmGWwWhkqLoweM2wRph-lWR0zT_hkjZg5RmEDQNLUkMZ3qquKSIIz6IcvzF48cyil0HVz7SWOknDtX8FjCetSDvtfXddw-wC-TYrRzMRmIXloyjLJKeGxyxKVwAqRZ-cGaEGmAO_zwq9klMdSkUOknx6450FjqMYVxky-2hFfMBvpIywkyby_7oWzk"
+                            />
+                            <div class="absolute top-3 left-3">
+                                <span
+                                    class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-label-sm font-label-sm"
+                                    >Management</span
+                                >
+                            </div>
+                        </div>
+                        <div class="p-5 flex flex-col flex-1">
+                            <h3
+                                class="font-headline-md text-[18px] text-primary mb-4 leading-tight"
+                            >
+                                Gestion de Projet Agile : Méthodologie Scrum
+                            </h3>
+                            <div class="mt-auto">
+                                <div
+                                    class="flex justify-between items-center mb-2"
+                                >
+                                    <span
+                                        class="font-label-sm text-label-sm text-on-surface-variant"
+                                        >Progression</span
+                                    >
+                                    <span
+                                        class="font-label-sm text-label-sm text-primary font-bold"
+                                        >Terminé</span
+                                    >
+                                </div>
+                                <div
+                                    class="w-full bg-surface-container h-2 rounded-full mb-6"
+                                >
+                                    <div
+                                        class="bg-tertiary-fixed-dim h-full rounded-full w-full"
+                                    ></div>
+                                </div>
+                                <button
+                                    class="w-full py-3 border-2 border-secondary text-secondary rounded-lg font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-secondary/5 transition-all"
+                                >
+                                    <span>Voir le certificat</span>
+                                    <span
+                                        class="material-symbols-outlined text-[18px]"
+                                        >workspace_premium</span
+                                    >
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Course Card 6 (Small CTA Grid item) -->
+                    <div
+                        class="bg-primary p-6 rounded-xl overflow-hidden flex flex-col justify-center items-center text-center border border-outline-variant/30"
+                    >
+                        <span
+                            class="material-symbols-outlined text-[64px] text-secondary-container mb-4"
+                            >add_circle</span
+                        >
+                        <h3
+                            class="font-headline-md text-[20px] text-on-primary mb-2"
+                        >
+                            Explorer de nouveaux cours
+                        </h3>
+                        <p
+                            class="font-body-md text-body-md text-on-primary-container mb-6"
+                        >
+                            Trouvez votre prochaine compétence parmi plus de 500
+                            formations disponibles.
+                        </p>
+                        <button
+                            class="px-8 py-3 bg-tertiary-fixed-dim text-tertiary rounded-lg font-bold text-label-md hover:scale-105 active:scale-95 transition-all"
+                        >
+                            Accéder au catalogue
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- BottomNavBar (Mobile only) -->
+        <nav
+            class="md:hidden fixed bottom-0 left-0 right-0 bg-surface-container-lowest h-16 flex items-center justify-around z-50 border-t border-outline-variant/30"
+        >
+            <button
+                class="flex flex-col items-center justify-center gap-1 text-on-surface-variant"
+            >
+                <span class="material-symbols-outlined">dashboard</span>
+                <span class="text-[10px] font-label-sm">Overview</span>
+            </button>
+            <button
+                class="flex flex-col items-center justify-center gap-1 text-primary"
+            >
+                <span
+                    class="material-symbols-outlined"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >school</span
+                >
+                <span class="text-[10px] font-bold font-label-sm"
+                    >Mes Cours</span
+                >
+            </button>
+            <button
+                class="flex flex-col items-center justify-center gap-1 text-on-surface-variant"
+            >
+                <span class="material-symbols-outlined">search</span>
+                <span class="text-[10px] font-label-sm">Explorer</span>
+            </button>
+            <button
+                class="flex flex-col items-center justify-center gap-1 text-on-surface-variant"
+            >
+                <span class="material-symbols-outlined">person</span>
+                <span class="text-[10px] font-label-sm">Profil</span>
+            </button>
+        </nav>
+    </body>
+</html>

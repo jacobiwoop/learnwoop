@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-low": "#f2f4f7",
+                      "surface-container-high": "#e6e8eb",
+                      "tertiary-fixed": "#ffdf9e",
+                      "on-tertiary-container": "#c09000",
+                      "tertiary-container": "#3f2d00",
+                      "on-secondary-fixed": "#001f24",
+                      "secondary-container": "#00e3fd",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-container": "#1a237e",
+                      "on-primary": "#ffffff",
+                      "surface-variant": "#e0e3e6",
+                      "surface-bright": "#f7f9fc",
+                      "on-error-container": "#93000a",
+                      "error-container": "#ffdad6",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-highest": "#e0e3e6",
+                      "on-primary-container": "#8690ee",
+                      "tertiary-fixed-dim": "#fabd00",
+                      "secondary": "#006875",
+                      "on-tertiary-fixed-variant": "#5b4300",
+                      "secondary-fixed": "#9cf0ff",
+                      "outline": "#767683",
+                      "on-surface": "#191c1e",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed-dim": "#00daf3",
+                      "inverse-on-surface": "#eff1f4",
+                      "on-primary-fixed-variant": "#343d96",
+                      "on-tertiary-fixed": "#261a00",
+                      "on-secondary-container": "#00616d",
+                      "surface": "#f7f9fc",
+                      "primary-fixed": "#e0e0ff",
+                      "tertiary": "#251900",
+                      "outline-variant": "#c6c5d4",
+                      "surface-container": "#eceef1",
+                      "inverse-surface": "#2d3133",
+                      "background": "#f7f9fc",
+                      "on-secondary-fixed-variant": "#004f58",
+                      "primary": "#000666",
+                      "error": "#ba1a1a",
+                      "on-background": "#191c1e",
+                      "surface-dim": "#d8dadd",
+                      "on-primary-fixed": "#000767",
+                      "surface-tint": "#4c56af",
+                      "on-surface-variant": "#454652",
+                      "primary-fixed-dim": "#bdc2ff",
+                      "inverse-primary": "#bdc2ff",
+                      "on-error": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-max": "1280px",
+                      "stack-lg": "2rem",
+                      "gutter": "1.5rem",
+                      "margin-mobile": "1rem",
+                      "stack-md": "1rem",
+                      "margin-desktop": "2rem",
+                      "stack-sm": "0.5rem"
+              },
+              "fontFamily": {
+                      "label-md": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-lg-mobile": ["Manrope"],
+                      "body-md": ["Inter"],
+                      "display-lg": ["Manrope"],
+                      "headline-lg": ["Manrope"],
+                      "headline-md": ["Manrope"]
+              },
+              "fontSize": {
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 h-16 max-w-container-max mx-auto bg-surface shadow-sm">
+<div class="flex items-center gap-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">BeninEdu Learn</h1>
+</div>
+<div class="flex-1 max-w-xl mx-12 hidden md:block">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-xl py-2 pl-10 pr-4 focus:ring-2 focus:ring-secondary/20 font-body-md text-body-md" placeholder="Rechercher un cours, un sujet..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<button class="relative p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+</div>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-surface-container-high">
+<img alt="User profile picture" data-alt="A professional close-up studio portrait of a young West African student smiling warmly. He is wearing a modern casual academic outfit. The lighting is soft and high-key, set against a clean, minimal office interior with subtle blue and white tones to match the corporate SaaS aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPHoa07-XG52W5CwrWmxdX6YgLUciRYaSojNNUjIF2JCEzBMNxJrD7dfVHo1yNOfotPW1ORFblvl0-CTo2I9DHZAd5wbgkdHkBCEP60BEBSC9PVc4BaxgtUDcuyG-GyUODXVsP6VNVcGoFSO_qj0p2UfZKk4CNdsGStdEFwoTD-kUvXBmGLitQuFP0zQA5uNW0YdeGRZ92OhX9VeHx6j47-sWciTaM7TFtTIJ_Yp0r2S0jD19PZg8VL8glChGFxjITvd5VEBdq7rY"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="hidden lg:flex flex-col fixed left-0 top-0 h-full w-64 p-4 z-40 bg-surface-container-lowest shadow-md pt-20">
+<div class="mb-8 px-4">
+<div class="flex items-center gap-3 mb-1">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary text-[18px]">Excellence Academy</h2>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant ml-11">Porto-Novo Campus</p>
+</div>
+<div class="flex flex-col gap-2 flex-1">
+<a class="bg-secondary-container text-on-secondary-container rounded-lg px-4 py-3 flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="live_tv">live_tv</span>
+<span class="font-label-md text-label-md">Live Classes</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="library_books">library_books</span>
+<span class="font-label-md text-label-md">Modules</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="tldraw">Alarm</span>
+<span class="font-label-md text-label-md">Whiteboard</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+<div class="mt-auto border-t border-outline-variant pt-4 flex flex-col gap-2">
+<button class="bg-primary text-on-primary font-label-md text-label-md py-3 rounded-lg shadow-sm hover:opacity-90 transition-opacity mb-4">
+                Upgrade Plan
+            </button>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 flex items-center gap-3 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="lg:ml-64 pt-24 px-4 md:px-8 pb-24 lg:pb-8 max-w-container-max mx-auto">
+<!-- Welcome Section -->
+<section class="mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-2">Bonjour, Koffi !</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Prêt à poursuivre votre apprentissage aujourd'hui ?</p>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Content (8 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-stack-lg">
+<!-- Programme du jour (Bento Inspired) -->
+<section>
+<div class="flex items-center justify-between mb-stack-md">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">event_note</span>
+                            Programme du jour
+                        </h3>
+<a class="text-secondary font-label-md text-label-md hover:underline" href="#">Voir tout le calendrier</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Live Class Card 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-[0_4px_12px_rgba(26,35,126,0.05)] border-l-4 border-secondary flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full font-label-sm text-label-sm">En Direct à 14:00</span>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="more_vert">more_vert</span>
+</div>
+<div>
+<h4 class="font-headline-md text-[18px] text-primary mb-1">Algorithmique Avancée</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">M. Amadou Sow</p>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<button class="flex-1 bg-secondary text-white font-label-md text-label-md py-2 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+                                    Rejoindre la classe
+                                </button>
+</div>
+</div>
+<!-- Live Class Card 2 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-[0_4px_12px_rgba(26,35,126,0.05)] border-l-4 border-tertiary-fixed-dim flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<span class="bg-surface-variant text-on-surface-variant px-3 py-1 rounded-full font-label-sm text-label-sm">16:30 - 18:00</span>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="more_vert">more_vert</span>
+</div>
+<div>
+<h4 class="font-headline-md text-[18px] text-primary mb-1">Économie Numérique au Bénin</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Mme. Chantal Agueh</p>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<button class="flex-1 border-1.5 border-secondary text-secondary font-label-md text-label-md py-2 rounded-lg hover:bg-secondary/5 transition-colors">
+                                    Détails du cours
+                                </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Mes Cours (Grid) -->
+<section>
+<div class="flex items-center justify-between mb-stack-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">Mes Cours</h3>
+<a class="text-secondary font-label-md text-label-md hover:underline" href="#">Voir mes 8 cours</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Course Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(26,35,126,0.05)] group cursor-pointer border border-transparent hover:border-secondary/20 transition-all">
+<div class="h-40 relative">
+<img alt="Web Development" class="w-full h-full object-cover" data-alt="High-quality professional overhead shot of a clean workspace with a laptop displaying lines of vibrant code. The setting is bright and airy with modern office aesthetics, featuring soft shadows and a focused atmosphere. Elements of Indigo and Cyan accents reflect a professional software engineering learning environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBtCOLErSI3tiAadp3mU_JUvjljFi0hT0vxNxxeuVAKNvgUUrSIkbp8_1kWeEUlDuoVKaJb61Xd11N_Y-5436rA6EcNvZWs9dhMlJGE-Q0bM1X2qfQPhjlszhwD9K-umjNaLIdctPxZXl-yijSYy8e6YfRRc861D_leP-2wjXhJm2wJxxNyh06Y0f0eAFChzqJ-nCCTRgEJQFWN5nufo8Y4E2qdf0wxkIDMZyU05J508l7s6ggwRzmst_5UCxbxxiFtvX09-fsJmk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent"></div>
+<span class="absolute bottom-3 left-3 bg-tertiary-fixed text-on-tertiary-fixed px-3 py-1 rounded-lg font-label-sm text-label-sm">Tech &amp; Dev</span>
+</div>
+<div class="p-5">
+<h4 class="font-headline-md text-[20px] text-primary mb-4">Développement Web Fullstack</h4>
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Progression</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">65%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 65%;"></div>
+</div>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(26,35,126,0.05)] group cursor-pointer border border-transparent hover:border-secondary/20 transition-all">
+<div class="h-40 relative">
+<img alt="Digital Marketing" class="w-full h-full object-cover" data-alt="A cinematic, detailed close-up of a digital tablet showing colorful marketing analytics and growth charts. The background is a sophisticated co-working space in Porto-Novo, featuring warm wooden textures and high-end tech equipment. The lighting is focused and warm, creating an inspiring and professional mood for a business student." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCg0IePTiTGsNtRwgBeJIYq-7DJhCObDd8v1oN6GUBo5pnTwASdKdg3Wi2UPng3kHJ1Z1cDQi62eQ7NkA-xo0WRZ3JYd3Rq8PI3tePOKPVZEPfNePXCEk3MY9kxaoouHk2NHLrOqEBIM5alWGhnz9WpGL5NKUS3vEFZQnK_4TMwG_oQwvc0LrnuPUgOffS9DHottn7sDWi5ySpaU-5qH0o5o9gVydvpMtXgFTb4f280qKrwI0XqI1ddAI4AD-n4g6qMH3uwprn6NQw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent"></div>
+<span class="absolute bottom-3 left-3 bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-lg font-label-sm text-label-sm">Marketing</span>
+</div>
+<div class="p-5">
+<h4 class="font-headline-md text-[20px] text-primary mb-4">Stratégie Marketing Digital</h4>
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Progression</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">32%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 32%;"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Sidebar Widgets (4 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-stack-lg">
+<!-- Statistiques Widget -->
+<section class="bg-primary p-6 rounded-2xl text-white shadow-lg overflow-hidden relative">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md mb-6">Statistiques</h3>
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div class="bg-white/10 p-4 rounded-xl backdrop-blur-sm border border-white/5">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-secondary-container">timer</span>
+<span class="font-label-sm text-label-sm opacity-80 uppercase tracking-wider">Heures</span>
+</div>
+<p class="font-display-lg text-[32px] leading-none">24.5</p>
+<p class="font-label-sm text-label-sm text-secondary-container mt-1">+12% cette semaine</p>
+</div>
+<div class="bg-white/10 p-4 rounded-xl backdrop-blur-sm border border-white/5">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-tertiary-fixed-dim">verified</span>
+<span class="font-label-sm text-label-sm opacity-80 uppercase tracking-wider">Modules</span>
+</div>
+<p class="font-display-lg text-[32px] leading-none">12</p>
+<p class="font-label-sm text-label-sm text-tertiary-fixed-dim mt-1">4 en cours</p>
+</div>
+</div>
+<div class="bg-white/10 p-4 rounded-xl border border-white/5">
+<div class="flex justify-between items-center mb-4">
+<span class="font-label-md text-label-md">Objectif hebdomadaire</span>
+<span class="font-label-sm text-label-sm">80%</span>
+</div>
+<div class="w-full bg-white/20 h-2 rounded-full">
+<div class="bg-secondary-container h-full rounded-full" style="width: 80%;"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Notifications / Updates -->
+<section class="bg-surface-container-lowest p-6 rounded-2xl shadow-[0_4px_12px_rgba(26,35,126,0.05)]">
+<h3 class="font-headline-md text-[18px] text-primary mb-4 flex items-center justify-between">
+                        Dernières Activités
+                        <span class="material-symbols-outlined text-on-surface-variant cursor-pointer">settings</span>
+</h3>
+<div class="flex flex-col gap-5">
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-error-container text-on-error-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">assignment</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Nouveau devoir en <strong>Mathématiques</strong></p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Il y a 2 heures • Date limite: Dimanche</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">chat</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">M. Sow a répondu à votre question</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Il y a 5 heures</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed text-on-tertiary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">workspace_premium</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Certificat obtenu: <strong>Intro à la Tech</strong></p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Hier, 18:45</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 text-secondary font-label-md text-label-md py-2 border-t border-outline-variant hover:bg-surface-container-low transition-colors">
+                        Voir tout l'historique
+                    </button>
+</section>
+<!-- Quick Action FAB Context (Suppressed for non-primary) -->
+<!-- As this is the main dashboard, we show a primary task FAB -->
+<button class="fixed bottom-24 right-8 lg:bottom-8 lg:right-8 w-14 h-14 bg-secondary text-white rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform z-50">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface shadow-[0_-4px_12px_rgba(26,35,126,0.05)]">
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="book">book</span>
+<span class="font-label-sm text-label-sm">Courses</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="videocam">videocam</span>
+<span class="font-label-sm text-label-sm">Live</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-variant active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+</body></html>
